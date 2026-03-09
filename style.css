@@ -1,12 +1,12 @@
 body{
     margin:0;
     font-family: Arial, Helvetica, sans-serif ;
-    background:#ffc4dc;
+    background:#ffe4ec;
 }
 
 /* HEADER */
 header{
-    background:#ff6fa5;
+    background:#ff8fb1;
     color:white;
     padding:15px;
     display:flex;
@@ -20,7 +20,7 @@ header img{
 
 /* NAVIGATION */
 nav{
-    background:white;
+    background:#ffc2d6;
     padding:10px;
 }
 
@@ -45,7 +45,7 @@ main{
 /* SIDEBAR */
 aside{
     flex:1;
-    background:#ffe0ec;
+    background:#ffd6e7;
     padding:20px;
 }
 
@@ -76,7 +76,7 @@ aside{
 
 /* FOOTER */
 footer{
-    background:#ff6fa5;
+    background:#ff8fb1;
     color:white;
     text-align:center;
     padding:10px;
