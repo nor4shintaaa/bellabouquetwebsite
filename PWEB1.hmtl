@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Bella Bouquet Shop</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif ;
+    background:#ffc4dc;
+}
+
+/* HEADER */
+header{
+    background:#ff6fa5;
+    color:white;
+    padding:15px;
+    display:flex;
+    align-items:center;
+}
+
+header img{
+    width:50px;
+    margin-right:10px;
+}
+
+/* NAVIGATION */
+nav{
+    background:white;
+    padding:10px;
+}
+
+nav a{
+    text-decoration:none;
+    color:black;
+    font-weight:bold;
+    margin-right:20px;
+}
+
+/* LAYOUT */
+.container{
+    display:flex;
+}
+
+/* MAIN CONTENT */
+main{
+    flex:3;
+    padding:20px;
+}
+
+/* SIDEBAR */
+aside{
+    flex:1;
+    background:#ffe0ec;
+    padding:20px;
+}
+
+/* PRODUK */
+.produk{
+    display:flex;
+    gap:20px;
+}
+
+.card{
+    background:white;
+    padding:10px;
+    border-radius:10px;
+    box-shadow:0 0 5px black;
+    text-align:center;
+}
+
+.card{
+    width:180px;
+}
+
+.card img{
+    width:150px;
+    height:150px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+/* FOOTER */
+footer{
+    background:#ff6fa5;
+    color:white;
+    text-align:center;
+    padding:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<img src="logo.jpg" alt="Logo Bouquet">
+<h1>Bella Bouquet Shop</h1>
+</header>
+
+<nav>
+<a href="#">Home</a>
+<a href="#">Produk</a>
+<a href="#">Pesanan</a>
+<a href="#">Kontak</a>
+</nav>
+
+<div class="container">
+
+<main>
+
+<section>
+<h2>Hi Gais, Selamat Datang di Bella Bouquet</h2>
+<p> Kami menyediakan berbagai buket cantik untuk wisuda, ulang tahun, dan hadiah spesial.</p>
+</section>
+
+<section>
+<h2>Produk Bouquet</h2>
+
+<div class="produk">
+
+<div class="card">
+<img src="bunga.jpg" alt="Flower Bouquet">
+<h3>Flower Bouquet</h3>
+<p>Rp80.000</p>
+</div>
+
+<div class="card">
+<img src="snack.jpg" alt="Snack Bouquet">
+<h3>Snack Bouquet</h3>
+<p>Rp75.000</p>
+</div>
+
+<div class="card">
+<img src="Money.jpg" alt="Money Bouquet">
+<h3>Money Bouquet</h3>
+<p>Rp95.000(jasa only)</p>
+</div>
+
+<div class="card">
+<img src="boneka.jpg" alt="Doll Bouquet">
+<h3>Doll Bouquet Bouquet</h3>
+<p>Rp100.000</p>
+</div>
+
+
+</div>
+
+</section>
+
+</main>
+
+<aside>
+
+<h3>Statistik Toko</h3>
+
+<p>🌸 Total Produk : 4</p>
+<p>🛒 Pesanan Hari Ini : 20</p>
+<p>👩‍💻 Pelanggan : 500</p>
+
+</aside>
+
+</div>
+
+<footer>
+<p>© 2026 Bella Bouquet Shop | Sistem Pemesanan Bouquet</p>
+</footer>
+
+</body>
+</html>
+
