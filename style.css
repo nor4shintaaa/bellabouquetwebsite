@@ -74,6 +74,15 @@ aside{
     border-radius:10px;
 }
 
+button{
+background:#1e630b;
+color:white;
+border:none;
+padding:8px 15px;
+border-radius:5px;
+cursor:pointer;
+}
+
 /* FOOTER */
 footer{
     background:#ff8fb1;
