@@ -56,6 +56,20 @@ grid-template-columns: repeat(5, 1fr);
 gap:20px;
 }
 
+
+@media (max-width: 900px){
+.produk{
+grid-template-columns: repeat(3,1fr);
+}
+}
+
+
+@media (max-width: 600px){
+.produk{
+grid-template-columns: repeat(2,1fr);
+}
+}
+
 .card{
     width:150px;
     background:white;
@@ -92,3 +106,4 @@ footer{
     text-align:center;
     padding:10px;
 }
+
