@@ -18,17 +18,19 @@ header img{
     margin-right:10px;
 }
 
-/* NAVIGATION */
+/* NAVBAR FIXED */
 nav{
-    background:#ffc2d6;
-    padding:10px;
+   background:#ffc2d6;
+padding:10px;
+position:sticky;
+top:0;
 }
 
 nav a{
-    text-decoration:none;
-    color:black;
-    font-weight:bold;
     margin-right:20px;
+text-decoration:none;
+color:black;
+font-weight:bold;
 }
 
 /* LAYOUT */
@@ -49,49 +51,58 @@ aside{
     padding:20px;
 }
 
-/* PRODUK */
+/* HERO */
+.hero{
+background:linear-gradient(to right,#ff8fb1,#ffc2d6);
+color:white;
+padding:30px;
+border-radius:10px;
+}
+
+/* PRODUK GRID */
 .produk{
 display:grid;
-grid-template-columns: repeat(5, 1fr);
+grid-template-columns: repeat(5,1fr);
 gap:20px;
 }
 
-
-@media (max-width: 900px){
+@media(max-width:900px){
 .produk{
-grid-template-columns: repeat(3,1fr);
+grid-template-columns:repeat(3,1fr);
 }
 }
 
-
-@media (max-width: 600px){
+@media(max-width:600px){
 .produk{
-grid-template-columns: repeat(2,1fr);
+grid-template-columns:repeat(2,1fr);
 }
 }
 
+/* CARD */
 .card{
-    width:150px;
-    background:white;
-    padding:10px;
-    border-radius:10px;
-    box-shadow:0 0 5px rgba(0,0,0,0.2);
-    text-align:center;
+background:white;
+padding:10px;
+border-radius:10px;
+box-shadow:0 0 5px rgba(0,0,0,0.2);
+text-align:center;
+transition:0.3s;
 }
 
-.card{
-    width:180px;
+.card:hover{
+transform:translateY(-5px);
 }
 
+/* IMAGE */
 .card img{
-    width:150px;
-    height:150px;
-    object-fit:cover;
-    border-radius:10px;
+width:100%;
+height:150px;
+object-fit:cover;
+border-radius:10px;
 }
 
+/* BUTTON */
 button{
-background:#1e630b;
+background:#ff6fa5;
 color:white;
 border:none;
 padding:8px 15px;
@@ -99,11 +110,35 @@ border-radius:5px;
 cursor:pointer;
 }
 
-/* FOOTER */
-footer{
-    background:#ff8fb1;
-    color:white;
-    text-align:center;
-    padding:10px;
+button:hover{
+background:#ff3d8b;
 }
 
+/* TABLE */
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:10px;
+}
+
+th, td{
+border:1px solid #ccc;
+padding:10px;
+text-align:center;
+}
+
+tr:nth-child(even){
+background:#ffe4ec;
+}
+
+/* FOOTER */
+footer{
+background:#ff8fb1;
+color:white;
+padding:20px;
+}
+
+.footer-container{
+display:flex;
+justify-content:space-around;
+}
