@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* ============================================
-   ROOT VARIABLES - WARNA & TEMA
-   ============================================ */
+
 :root {
     --primary: hsl(340, 53%, 41%);
     --primary-dark: #ee79a4;
@@ -16,9 +14,7 @@
     --warning: #f1c40f;
 }
 
-/* ============================================
-   GLOBAL STYLES
-   ============================================ */
+
 * {
     margin: 0;
     padding: 0;
@@ -31,9 +27,7 @@ body {
     color: var(--text-dark);
 }
 
-/* ============================================
-   UTILITY CLASSES
-   ============================================ */
+
 .mb-20 {
     margin-bottom: 20px;
 }
@@ -338,7 +332,6 @@ body {
     font-size: 14px;
 }
 
-/* GANTI BAGIAN INI DI STYLE.CSS */
 
 .prod-body { 
     padding: 15px; 
