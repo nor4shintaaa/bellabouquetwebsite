@@ -4,139 +4,162 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css"> 
-    <title>Bella Bouquet Shop</title>
+    <title>Bella Admin Dashboard</title>
 </head>
 <body>
-    <header>
-<img src="logoo.jpg" alt="Logo Bouquet">
-<h1>Bella Bouquet Shop</h1>
-</header>
 
-<nav>
-<a href="#">Home</a>
-<a href="#">Produk</a>
-<a href="#">Pesanan</a>
-<a href="#">Kontak</a>
-</nav>
+<div class="dashboard-container">
+    
+    <nav class="sidebar">
+        <div class="logo-area">
+            <span class="logo-icon">🌸</span>
+            <h2>Bella Admin</h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" id="menu-beranda" class="active" onclick="switchTab('beranda')">Beranda</a></li>
+            <li><a href="#" id="menu-produk" onclick="switchTab('produk')">Daftar Produk</a></li>
+            <li><a href="#">Pesanan</a></li>
+            <li><a href="#">Pengaturan</a></li>
+        </ul>
+    </nav>
 
-<div class="container">
+    <main class="main-content">
+        
+        <header class="topbar">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Cari di sini...">
+            </div>
+            <div class="user-profile">
+                <img src="img/logoo.jpg" alt="Profile" class="avatar">
+            </div>
+        </header>
 
-<main>
+        <!-- VIEW BERANDA -->
+        <div id="view-beranda" class="view-section active">
+            <div class="welcome-text mb-20">
+                <h2>Beranda Overview ✨</h2>
+                <p>Ringkasan aktivitas dan katalog toko Bella Bouquet hari ini.</p>
+            </div>
 
-<section class="hero">
-    <h2>Selamat Datang di Bella Bouquet 🌸</h2>
-    <p>Temukan bouquet cantik untuk semua momen spesialmu</p>
-</section>
+            <div class="stat-grid mb-20">
+                <div class="card stat-box">
+                    <p>Total Item Inventaris</p>
+                    <h3 id="dash-total-item">0</h3>
+                </div>
+                <div class="card stat-box">
+                    <p>Total Nilai Inventaris</p>
+                    <h3 id="dash-total-value">Rp 0</h3>
+                </div>
+                <div class="card stat-box">
+                    <p>Stok Menipis (< 5)</p>
+                    <h3 id="dash-low-stock" class="text-danger">0</h3>
+                </div>
+            </div>
 
-<section>
-    <input type="text" placeholder="Cari produk...">
-    <button>Cari</button>
-</section>
+            <div class="header-produk mb-20 mt-10">
+                <h3>Katalog Produk Anda</h3>
+            </div>
+            
+            <div id="beranda-product-grid" class="product-grid">
+                
+            </div>
+        </div>
 
-<section>
-<h2>Katalog Produk Bouquet</h2>
+        <div id="view-produk" class="view-section hidden">
+            <div class="header-produk mb-20">
+                <h2>Manajemen Produk 📦</h2>
+                <div class="header-actions">
+                    <select id="category-filter" title="Filter Kategori">
+                        <option value="">Semua Kategori</option>
+                        <option value="Flower">Flower</option>
+                        <option value="Snack">Snack</option>
+                        <option value="Money">Money</option>
+                        <option value="Doll">Doll</option>
+                    </select>
+                    <button class="btn-primary" onclick="openModal()">+ Tambah Produk Baru</button>
+                </div>
+            </div>
 
-<div class="produk">
+            <section class="card table-card">
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Gambar</th>
+                                <th>Kode</th>
+                                <th>Nama</th>
+                                <th>Kategori</th>
+                                <th>Stok</th>
+                                <th>Harga</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="product-table-body">
+                            </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
 
-<div class="card">
-<img src="bunga.jpg" alt="Flower Bouquet">
-<h3>Flower Bouquet</h3>
-<p>Rp80.000</p>
-<button>Pesan Sekarang</button>
+    </main>
 </div>
 
-<div class="card">
-<img src="snack.jpg" alt="Snack Bouquet">
-<h3>Snack Bouquet</h3>
-<p>Rp75.000</p>
-<button>Pesan Sekarang</button>
+<div id="product-modal" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3 id="form-title">Tambah Produk Baru</h3>
+            <button class="btn-close" onclick="closeModal()">&times;</button>
+        </div>
+        
+        <form id="inventory-form">
+            <input type="hidden" id="edit-index">
+            
+            <div class="form-group">
+                <label for="gambar">Upload Gambar Produk (Maks 1MB)</label>
+                <input type="file" id="gambar" accept="image/*" title="Upload Gambar Produk">
+                <small id="gambar-info" class="gambar-info"></small>
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label>Kode Barang</label>
+                    <input type="text" id="kode" placeholder="BQ01" required>
+                </div>
+                <div class="form-group">
+                    <label>Nama Bouquet</label>
+                    <input type="text" id="nama" placeholder="Mawar Merah" required>
+                </div>
+            </div>
+
+            <div class="input-row">
+                <div class="form-group">
+                    <label>Kategori</label>
+                    <select id="kategori" name="kategori" title="Kategori" required>
+                        <option value="Flower">Flower</option>
+                        <option value="Snack">Snack</option>
+                        <option value="Money">Money</option>
+                        <option value="Doll">Doll</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Stok</label>
+                    <input type="number" id="stok" placeholder="10" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Harga Jual (Rp)</label>
+                <input type="number" id="harga" placeholder="80000" required>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" onclick="closeModal()">Batal</button>
+                <button type="submit" class="btn-primary" id="btn-save">Simpan Data</button>
+            </div>
+        </form>
+    </div>
 </div>
 
-<div class="card">
-<img src="Money.jpg" alt="Money Bouquet">
-<h3>Money Bouquet</h3>
-<p>Rp95.000(jasa only)</p>
-</div>
-
-<div class="card">
-<img src="boneka.jpg" alt="Doll Bouquet">
-<h3>Doll Bouquet</h3>
-<p>Rp100.000</p>
-</div>
-
-
-<div class="card">
-<img src="weddingbouquet.jpg" alt="Wedding Bouquet">
-<h3>Wedding Bouquet</h3>
-<p>Rp100.000</p>
-</div>
-
-
-</div>
-
-</section>
-
-<!-- TABLE -->
-<section>
-<h2>Data Pesanan</h2>
-<table>
-<tr>
-<th>Nama</th>
-<th>Produk</th>
-<th>Status</th>
-</tr>
-<tr>
-<td>Ani</td>
-<td>Flower</td>
-<td>Selesai</td>
-</tr>
-<tr>
-<td>Budi</td>
-<td>Snack</td>
-<td>Proses</td>
-</tr>
-</table>
-</section>
-
-
-</main>
-
-<!-- SIDEBAR -->
-<aside>
-<h3>Filter Produk</h3>
-
-<label><input type="checkbox"> Flower</label><br>
-<label><input type="checkbox"> Snack</label><br>
-<label><input type="checkbox"> Money</label><br>
-
-<h3>Statistik</h3>
-<p>Total Produk: 5</p>
-<p>Pesanan: 20</p>
-</aside>
-
-</div>
-
-<!-- FOOTER -->
-<footer>
-<div class="footer-container">
-<div>
-<h4>About</h4>
-<p>Toko bouquet terbaik</p>
-</div>
-
-<div>
-<h4>Menu</h4>
-<p>Home</p>
-<p>Produk</p>
-</div>
-
-<div>
-<h4>Kontak</h4>
-<p>Instagram</p>
-<p>WhatsApp</p>
-</div>
-</div>
-</footer>
-
+<script src="script.js"></script>
 </body>
 </html>
