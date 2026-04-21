@@ -1,165 +1,218 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css"> 
-    <title>Bella Admin Dashboard</title>
+    <title>Bella Admin | Profesional Dashboard</title>
 </head>
 <body>
 
-<div class="dashboard-container">
-    
-    <nav class="sidebar">
-        <div class="logo-area">
-            <span class="logo-icon">🌸</span>
-            <h2>Bella Admin</h2>
+<nav class="top-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="icon">🌸</span>
+                <h1>Bella Admin</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#" id="menu-dashboard" class="active" onclick="switchTab('dashboard')">Dashboard</a></li>
+                <li><a href="#" id="menu-produk" onclick="switchTab('produk')">Daftar Produk</a></li>
+        
+            </ul>
+            <div class="nav-profile">
+                <span class="admin-name">Halo, Admin</span>
+                <img src="logoo.jpg" alt="Admin" class="avatar-small" onerror="this.src='https://via.placeholder.com/40'">
+            </div>
         </div>
-        <ul class="nav-links">
-            <li><a href="#" id="menu-beranda" class="active" onclick="switchTab('beranda')">Beranda</a></li>
-            <li><a href="#" id="menu-produk" onclick="switchTab('produk')">Daftar Produk</a></li>
-            <li><a href="#">Pesanan</a></li>
-            <li><a href="#">Pengaturan</a></li>
-        </ul>
     </nav>
 
-    <main class="main-content">
-        
-        <header class="topbar">
-            <div class="search-box">
-                <input type="text" id="search-input" placeholder="Cari di sini...">
-            </div>
-            <div class="user-profile">
-                <img src="img/logoo.jpg" alt="Profile" class="avatar">
-            </div>
-        </header>
+    <main id="view-dashboard" class="container view-section active">
+        <div class="header-title">
+            <h2>Dashboard Overview</h2>
+            <p class="text-muted">Ringkasan performa Bella Bouquet</p>
+        </div>
 
-        <!-- VIEW BERANDA -->
-        <div id="view-beranda" class="view-section active">
-            <div class="welcome-text mb-20">
-                <h2>Beranda Overview ✨</h2>
-                <p>Ringkasan aktivitas dan katalog toko Bella Bouquet hari ini.</p>
+        <div class="metrics-grid">
+            <div class="card metric-box">
+                <p>Total Produk</p>
+                <h3 id="dash-total-item">0</h3>
             </div>
+            <div class="card metric-box">
+                <p>Total Nilai Inventaris</p>
+                <h3 id="dash-total-value">Rp 0</h3>
+            </div>
+            <div class="card metric-box danger">
+                <p>Stok Menipis (< 5)</p>
+                <h3 id="dash-low-stock">0</h3>
+            </div>
+            <div class="card metric-box highlight">
+                <p>Terjual (Bulan Ini)</p>
+                <h3>124</h3>
+            </div>
+        </div>
 
-            <div class="stat-grid mb-20">
-                <div class="card stat-box">
-                    <p>Total Item Inventaris</p>
-                    <h3 id="dash-total-item">0</h3>
-                </div>
-                <div class="card stat-box">
-                    <p>Total Nilai Inventaris</p>
-                    <h3 id="dash-total-value">Rp 0</h3>
-                </div>
-                <div class="card stat-box">
-                    <p>Stok Menipis (< 5)</p>
-                    <h3 id="dash-low-stock" class="text-danger">0</h3>
-                </div>
-            </div>
-
-            <div class="header-produk mb-20 mt-10">
-                <h3>Katalog Produk Anda</h3>
-            </div>
+        <div class="card mb-30">
+            <h3 class="section-title">Katalog Produk Tersedia</h3>
             
-            <div id="beranda-product-grid" class="product-grid">
-                
+            <div id="beranda-product-grid" class="produk-grid">
+                </div>
+
+            <div class="text-center mt-20" id="btn-lihat-semua-container" class="hide-element">
+                <button class="btn-outline" onclick="toggleDashboardProducts()">Lihat Semua Produk ⬇</button>
             </div>
         </div>
 
-        <div id="view-produk" class="view-section hidden">
-            <div class="header-produk mb-20">
-                <h2>Manajemen Produk 📦</h2>
-                <div class="header-actions">
-                    <select id="category-filter" title="Filter Kategori">
-                        <option value="">Semua Kategori</option>
-                        <option value="Flower">Flower</option>
-                        <option value="Snack">Snack</option>
-                        <option value="Money">Money</option>
-                        <option value="Doll">Doll</option>
-                    </select>
-                    <button class="btn-primary" onclick="openModal()">+ Tambah Produk Baru</button>
+        <div class="dashboard-split">
+            <div class="card">
+                <h3 class="section-title">5 Produk Terlaris</h3>
+                <div class="list-group">
+                    <div class="list-item"><span>1. Bouquet Flower</span> <b>45 Terjual</b></div>
+                    <div class="list-item"><span>2. Bouquet Snack</span> <b>32 Terjual</b></div>
+                    <div class="list-item"><span>3. Money Bouquet 100k</span> <b>28 Terjual</b></div>
+                    <div class="list-item"><span>4. Doll Bouquet</span> <b>15 Terjual</b></div>
+                    <div class="list-item"><span>5. Cake and flowers</span> <b>10 Terjual</b></div>
                 </div>
             </div>
 
-            <section class="card table-card">
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Gambar</th>
-                                <th>Kode</th>
-                                <th>Nama</th>
-                                <th>Kategori</th>
-                                <th>Stok</th>
-                                <th>Harga</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="product-table-body">
-                            </tbody>
-                    </table>
-                </div>
-            </section>
+            <div class="card">
+                <h3 class="section-title">Riwayat Pesanan Terakhir</h3>
+                <table class="simple-table">
+                    <tr><td>#INV-001</td><td>Budi S.</td><td class="text-success">Selesai</td></tr>
+                    <tr><td>#INV-002</td><td>Siti A.</td><td class="text-success">Selesai</td></tr>
+                    <tr><td>#INV-003</td><td>Andi D.</td><td class="text-warning">Proses</td></tr>
+                    <tr><td>#INV-004</td><td>Rina K.</td><td class="text-success">Selesai</td></tr>
+                    <tr><td>#INV-005</td><td>Fajar R.</td><td class="text-warning">Proses</td></tr>
+                </table>
+            </div>
         </div>
-
     </main>
-</div>
 
-<div id="product-modal" class="modal-overlay">
-    <div class="modal-box">
-        <div class="modal-header">
-            <h3 id="form-title">Tambah Produk Baru</h3>
-            <button class="btn-close" onclick="closeModal()">&times;</button>
-        </div>
+    <main id="view-produk" class="view-section hidden">
         
-        <form id="inventory-form">
-            <input type="hidden" id="edit-index">
+        <div class="produk-layout">
             
-            <div class="form-group">
-                <label for="gambar">Upload Gambar Produk (Maks 1MB)</label>
-                <input type="file" id="gambar" accept="image/*" title="Upload Gambar Produk">
-                <small id="gambar-info" class="gambar-info"></small>
-            </div>
+            <aside class="sidebar-filter card">
+                <div class="filter-header">
+                    <h3>Filter Data</h3>
+                    <button class="btn-text" onclick="resetFilter()">Reset</button>
+                </div>
 
-            <div class="input-row">
+                <div class="filter-group">
+                    <label class="filter-label" for="search-input">Pencarian</label>
+                    <input type="text" id="search-input" class="input-style" placeholder="Cari nama atau kode...">
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Kategori Produk</label>
+                    <label class="checkbox-container"> Flower
+                        <input type="checkbox" value="Flower" class="kat-filter">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-container"> Snack
+                        <input type="checkbox" value="Snack" class="kat-filter">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-container"> Money
+                        <input type="checkbox" value="Money" class="kat-filter">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-container"> Doll
+                        <input type="checkbox" value="Doll" class="kat-filter">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+
+                <div class="filter-info">
+                    <p>Menampilkan <b id="count-display">0</b> produk</p>
+                </div>
+            </aside>
+
+            <div class="produk-main">
+                
+                <div class="main-header flex-between mb-20">
+                    <h2>Katalog & Data Produk</h2>
+                    <button class="btn-primary" onclick="openModal()">+ Tambah Produk</button>
+                </div>
+
+                <div id="produk-grid-container" class="produk-grid mb-30">
+                    </div>
+
+                <div class="card">
+                    <h3 class="section-title">Daftar Lengkap Data Produk</h3>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Kode</th>
+                                    <th>Nama Produk</th>
+                                    <th>Kategori</th>
+                                    <th>Stok</th>
+                                    <th>Harga / Item</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="product-table-body">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <div id="product-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="form-title">Tambah Produk Baru</h3>
+                <button class="btn-close" onclick="closeModal()">×</button>
+            </div>
+            
+            <form id="inventory-form">
                 <div class="form-group">
-                    <label>Kode Barang</label>
-                    <input type="text" id="kode" placeholder="BQ01" required>
+                    <label for="gambar">Upload Gambar Produk (Maks 1MB)</label>
+                    <input type="file" id="gambar" accept="image/*" class="input-style">
+                    <small id="gambar-info" class="gambar-info"></small>
+                </div>
+                <div class="input-row">
+                    <div class="form-group">
+                        <label for="kode">Kode Barang</label>
+                        <input type="text" id="kode" class="input-style" placeholder="Contoh: FLW-01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nama">Nama Produk</label>
+                        <input type="text" id="nama" class="input-style" required>
+                    </div>
+                </div>
+                <div class="input-row">
+                    <div class="form-group">
+                        <label for="kategori">Kategori</label>
+                        <select id="kategori" class="input-style" required aria-label="Kategori Produk">
+                            <option value="">-- Pilih Kategori --</option>
+                            <option value="Flower">Flower</option>
+                            <option value="Snack">Snack</option>
+                            <option value="Money">Money</option>
+                            <option value="Doll">Doll</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="stok">Stok Tersedia</label>
+                        <input type="number" id="stok" class="input-style" required>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label>Nama Bouquet</label>
-                    <input type="text" id="nama" placeholder="Mawar Merah" required>
+                    <label for="harga">Harga Jual (Rp)</label>
+                    <input type="number" id="harga" class="input-style" required>
                 </div>
-            </div>
-
-            <div class="input-row">
-                <div class="form-group">
-                    <label>Kategori</label>
-                    <select id="kategori" name="kategori" title="Kategori" required>
-                        <option value="Flower">Flower</option>
-                        <option value="Snack">Snack</option>
-                        <option value="Money">Money</option>
-                        <option value="Doll">Doll</option>
-                    </select>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="closeModal()">Batal</button>
+                    <button type="submit" class="btn-primary">Simpan Data</button>
                 </div>
-                <div class="form-group">
-                    <label>Stok</label>
-                    <input type="number" id="stok" placeholder="10" required>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Harga Jual (Rp)</label>
-                <input type="number" id="harga" placeholder="80000" required>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn-secondary" onclick="closeModal()">Batal</button>
-                <button type="submit" class="btn-primary" id="btn-save">Simpan Data</button>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
