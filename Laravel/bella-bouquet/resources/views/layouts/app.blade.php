@@ -11,8 +11,8 @@
         :root {
             --primary: #f43f5e;
             --primary-hover: #e11d48;
-            --primary-light: #fff1f2;
-            --bg-body: #fff1f2;
+            --primary-light: rgb(255, 209, 231);
+            --bg-body: #ffe9f7;
             --white: #ffffff;
             --slate-50: #f8fafc;
             --slate-100: #f1f5f9;
