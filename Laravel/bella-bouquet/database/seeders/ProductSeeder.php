@@ -8,8 +8,7 @@ use App\Models\Product;
 class ProductSeeder extends Seeder
 {
     public function run(): void
-
-    { 
+    {
         $products = [
             [
                 'kode_produk' => 'SNK-001',
@@ -40,7 +39,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'kode_produk' => 'FLW-002',
-                'nama' => 'pink tulip box',
+                'nama' => 'Pink Tulip Box',
                 'kategori' => 'Flower',
                 'stok' => 2,
                 'harga' => 150000,
