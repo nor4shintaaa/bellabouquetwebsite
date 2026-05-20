@@ -2,200 +2,415 @@
 
 @section('content')
 <style>
-    /* ==========================================================================
-       CSS HALAMAN PROFIL
-       ========================================================================== */
-    .profile-wrapper { max-width: 1000px; margin: 0 auto; }
-    
-    .profile-grid { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: start; }
+    .profile-wrapper {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 48px 24px 80px;
+    }
+
+    .profile-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 32px;
+        align-items: start;
+    }
+
     @media (min-width: 1024px) {
-        .profile-grid { grid-template-columns: 1fr 2fr; } /* Layout terbagi 1:2 di layar besar */
+        .profile-grid {
+            grid-template-columns: 1fr 2fr;
+        }
     }
 
-    /* KARTU PROFIL KIRI */
-    .profile-card { background-color: var(--white); padding: 40px 24px; border-radius: 32px; text-align: center; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); }
-    
-    .avatar-wrapper { position: relative; width: 120px; height: 120px; margin: 0 auto 24px auto; }
-    .avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 4px solid #fff1f2; box-shadow: 0 4px 10px rgba(244, 63, 94, 0.15); }
-    
-    /* Tombol Upload Avatar overlay */
+    .profile-card {
+        background-color: var(--white, #ffffff);
+        padding: 40px 24px;
+        border-radius: 32px;
+        text-align: center;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    }
+
+    .avatar-wrapper {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 24px auto;
+    }
+
+    .avatar-img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #fff1f2;
+        box-shadow: 0 4px 10px rgba(244, 63, 94, 0.15);
+        transition: all 0.3s ease;
+    }
+
     .avatar-upload-btn {
-        position: absolute; bottom: 0; right: 0; width: 36px; height: 36px;
-        background-color: #e11d48; color: white; border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        cursor: pointer; border: 3px solid white; transition: all 0.2s ease;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 36px;
+        height: 36px;
+        background-color: #e11d48;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: 3px solid white;
+        transition: all 0.2s ease;
     }
-    .avatar-upload-btn:hover { background-color: #be123c; transform: scale(1.1); }
 
-    .profile-name-large { font-size: 1.5rem; font-weight: 900; color: var(--slate-900); margin-bottom: 4px; }
-    .profile-role-badge { display: inline-block; padding: 6px 16px; background-color: #fce7f3; color: #db2777; font-size: 0.75rem; font-weight: 800; border-radius: 20px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
+    .avatar-upload-btn:hover {
+        background-color: #be123c;
+        transform: scale(1.1);
+    }
 
-    /* FORM KANAN */
-    .form-section { background-color: var(--white); padding: 40px; border-radius: 32px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); margin-bottom: 24px; }
-    .section-title { font-size: 1.25rem; font-weight: 800; color: var(--slate-800); margin-bottom: 24px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--slate-100); padding-bottom: 16px; }
-    
-    .label-pengaturan { font-size: 0.75rem; font-weight: 800; color: var(--slate-500); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; display: block; }
-    .input-pengaturan { width: 100%; padding: 16px 20px; border-radius: 16px; border: 1px solid var(--slate-200); font-family: inherit; font-size: 0.95rem; color: var(--slate-700); outline: none; transition: all 0.3s ease; background-color: #f8fafc; margin-bottom: 24px; }
-    .input-pengaturan:focus { background-color: #ffffff; border-color: #fbcfe8; box-shadow: 0 0 0 4px #fdf2f8; }
+    .profile-name-large {
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: var(--slate-900, #0f172a);
+        margin-bottom: 4px;
+    }
 
-    .grid-2-col { display: grid; grid-template-columns: 1fr; gap: 0 24px; }
-    @media (min-width: 768px) { .grid-2-col { grid-template-columns: 1fr 1fr; } }
+    .profile-role-badge {
+        display: inline-block;
+        padding: 6px 16px;
+        background-color: #fce7f3;
+        color: #db2777;
+        font-size: 0.75rem;
+        font-weight: 800;
+        border-radius: 20px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+    }
+
+    .profile-info-box {
+        border-top: 1px solid var(--slate-100, #f1f5f9);
+        padding-top: 24px;
+        margin-top: 8px;
+        text-align: left;
+    }
+
+    .profile-info-item {
+        margin-bottom: 16px;
+    }
+
+    .profile-info-label {
+        font-size: 0.75rem;
+        color: var(--slate-400, #94a3b8);
+        font-weight: 700;
+    }
+
+    .profile-info-text {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--slate-700, #334155);
+        margin-top: 4px;
+    }
+
+    .form-section {
+        background-color: var(--white, #ffffff);
+        padding: 40px;
+        border-radius: 32px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        margin-bottom: 24px;
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: var(--slate-800, #1e293b);
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border-bottom: 1px solid var(--slate-100, #f1f5f9);
+        padding-bottom: 16px;
+    }
+
+    .label-pengaturan {
+        font-size: 0.75rem;
+        font-weight: 800;
+        color: var(--slate-500, #64748b);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 12px;
+        display: block;
+    }
+
+    .input-pengaturan {
+        width: 100%;
+        padding: 16px 20px;
+        border-radius: 16px;
+        border: 1px solid var(--slate-200, #e2e8f0);
+        font-family: inherit;
+        font-size: 0.95rem;
+        color: var(--slate-700, #334155);
+        outline: none;
+        transition: all 0.3s ease;
+        background-color: #f8fafc;
+        margin-bottom: 8px;
+    }
+
+    .input-pengaturan:focus {
+        background-color: #ffffff;
+        border-color: #fbcfe8;
+        box-shadow: 0 0 0 4px #fdf2f8;
+    }
+
+    .grid-2-col {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0 24px;
+    }
+
+    @media (min-width: 768px) {
+        .grid-2-col {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    .error-text {
+        color: #e11d48;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-bottom: 18px;
+        display: block;
+    }
+
+    .btn-wrapper {
+        display: flex;
+        justify-content: flex-end;
+        gap: 16px;
+        margin-bottom: 60px;
+    }
+
+    .btn-cancel {
+        padding: 16px 32px;
+        border-radius: 14px;
+        font-weight: 800;
+        font-size: 1rem;
+        color: var(--slate-500, #64748b);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
+
+    .btn-save-profile {
+        background-color: #9f1239;
+        padding: 16px 32px;
+        border-radius: 14px;
+        font-weight: 800;
+        font-size: 1rem;
+        border: none;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(159, 18, 57, 0.2);
+    }
+
+    .btn-save-profile:hover {
+        background-color: #be123c;
+        transform: translateY(-2px);
+    }
+
+    .alert-success {
+        background: #dcfce7;
+        color: #166534;
+        padding: 16px 20px;
+        border-radius: 16px;
+        font-weight: 700;
+        margin-bottom: 24px;
+        border: 1px solid #bbf7d0;
+    }
 </style>
+
+@php
+    $loginUser = $user ?? auth()->user();
+
+    $avatarUrl = $loginUser->avatar_path
+        ? asset('storage/' . $loginUser->avatar_path)
+        : 'https://ui-avatars.com/api/?name=' . urlencode($loginUser->name ?? 'Admin Bella') . '&background=ffe4e6&color=e11d48&size=200&bold=true';
+@endphp
 
 <div class="profile-wrapper">
     <div class="header-pengaturan" style="margin-bottom: 32px;">
-        <h1 class="page-title" style="font-size: 2.25rem; font-weight: 900; color: var(--slate-900); margin-bottom: 8px;">Profil Akun</h1>
-        <p class="page-subtitle" style="font-size: 1.05rem; color: var(--slate-500);">Kelola informasi personal dan keamanan akun Admin Anda.</p>
+        <h1 class="page-title" style="font-size: 2.25rem; font-weight: 900; color: var(--slate-900, #0f172a); margin-bottom: 8px;">
+            Profil Akun
+        </h1>
+        <p class="page-subtitle" style="font-size: 1.05rem; color: var(--slate-500, #64748b);">
+            Kelola informasi personal dan keamanan akun Admin Anda.
+        </p>
     </div>
 
-    <div class="profile-grid">
-        <div class="profile-card">
-            <div class="avatar-wrapper">
-                <img id="avatarPreview" src="https://ui-avatars.com/api/?name=Admin+Bella&background=ffe4e6&color=e11d48&size=200&bold=true" class="avatar-img" alt="Admin Avatar">
-                
-                <input type="file" id="uploadAvatar" accept="image/*" style="display: none;">
-                <label for="uploadAvatar" class="avatar-upload-btn" title="Ganti Foto">
-                    <i data-lucide="camera" style="width: 16px; height: 16px;"></i>
-                </label>
-            </div>
-            
-            <h2 class="profile-name-large">Admin Bella</h2>
-            <div class="profile-role-badge">Super Owner</div>
-            
-            <div style="border-top: 1px solid var(--slate-100); padding-top: 24px; margin-top: 8px; text-align: left;">
-                <div style="margin-bottom: 16px;">
-                    <span style="font-size: 0.75rem; color: var(--slate-400); font-weight: 700;">EMAIL TERDAFTAR</span>
-                    <p style="font-size: 0.9rem; font-weight: 600; color: var(--slate-700);">admin@bellabouquet.com</p>
-                </div>
-                <div>
-                    <span style="font-size: 0.75rem; color: var(--slate-400); font-weight: 700;">TERAKHIR LOGIN</span>
-                    <p style="font-size: 0.9rem; font-weight: 600; color: var(--slate-700);">Hari ini, 08:30 WIB</p>
-                </div>
-            </div>
+    @if (session('success'))
+        <div class="alert-success">
+            {{ session('success') }}
         </div>
+    @endif
 
-        <div>
-            <form action="#" method="POST">
-                @csrf
-                
+    <form id="profileForm" action="{{ route('profil.update') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PATCH')
+
+        <div class="profile-grid">
+            <div class="profile-card">
+                <div class="avatar-wrapper">
+                    <img id="avatarPreview" src="{{ $avatarUrl }}" class="avatar-img" alt="Admin Avatar">
+
+                    <input type="file" id="uploadAvatar" name="avatar" accept="image/*" style="display: none;">
+
+                    <label for="uploadAvatar" class="avatar-upload-btn" title="Ganti Foto">
+                        <i data-lucide="camera" style="width: 16px; height: 16px;"></i>
+                    </label>
+                </div>
+
+                @error('avatar')
+                    <span class="error-text">{{ $message }}</span>
+                @enderror
+
+                <h2 class="profile-name-large">{{ $loginUser->name }}</h2>
+                <div class="profile-role-badge">Super Owner</div>
+
+                <div class="profile-info-box">
+                    <div class="profile-info-item">
+                        <span class="profile-info-label">EMAIL TERDAFTAR</span>
+                        <p class="profile-info-text">{{ $loginUser->email }}</p>
+                    </div>
+
+                    <div class="profile-info-item">
+                        <span class="profile-info-label">USERNAME</span>
+                        <p class="profile-info-text">{{ $loginUser->username ?? '-' }}</p>
+                    </div>
+
+                    <div class="profile-info-item">
+                        <span class="profile-info-label">NOMOR TELEPON</span>
+                        <p class="profile-info-text">{{ $loginUser->phone ?? '-' }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
                 <div class="form-section">
-                    <h3 class="section-title"><i data-lucide="user" style="color: #f472b6;"></i> Informasi Dasar</h3>
-                    
+                    <h3 class="section-title">
+                        <i data-lucide="user" style="color: #f472b6;"></i>
+                        Informasi Dasar
+                    </h3>
+
                     <div class="grid-2-col">
                         <div>
                             <label class="label-pengaturan">Nama Lengkap</label>
-                            <input type="text" name="name" value="Admin Bella" class="input-pengaturan">
+                            <input
+                                type="text"
+                                name="name"
+                                value="{{ old('name', $loginUser->name) }}"
+                                class="input-pengaturan"
+                                placeholder="Masukkan nama lengkap"
+                                required
+                            >
+                            @error('name')
+                                <span class="error-text">{{ $message }}</span>
+                            @enderror
                         </div>
+
                         <div>
                             <label class="label-pengaturan">Username</label>
-                            <input type="text" name="username" value="admin_bella" class="input-pengaturan">
+                            <input
+                                type="text"
+                                name="username"
+                                value="{{ old('username', $loginUser->username) }}"
+                                class="input-pengaturan"
+                                placeholder="Contoh: admin_bella"
+                            >
+                            @error('username')
+                                <span class="error-text">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 
                     <label class="label-pengaturan">Alamat Email</label>
-                    <input type="email" name="email" value="admin@bellabouquet.com" class="input-pengaturan">
-                    
+                    <input
+                        type="email"
+                        name="email"
+                        value="{{ old('email', $loginUser->email) }}"
+                        class="input-pengaturan"
+                        placeholder="Masukkan alamat email"
+                        required
+                    >
+                    @error('email')
+                        <span class="error-text">{{ $message }}</span>
+                    @enderror
+
                     <label class="label-pengaturan">Nomor Telepon</label>
-                    <input type="text" name="phone" value="081234567890" class="input-pengaturan" style="margin-bottom: 0;">
+                    <input
+                        type="text"
+                        name="phone"
+                        value="{{ old('phone', $loginUser->phone) }}"
+                        class="input-pengaturan"
+                        placeholder="Contoh: 081234567890"
+                    >
+                    @error('phone')
+                        <span class="error-text">{{ $message }}</span>
+                    @enderror
                 </div>
 
-                <!-- <div class="form-section">
-                    <h3 class="section-title"><i data-lucide="shield-check" style="color: #f472b6;"></i> Keamanan & Password</h3>
-                    
-                    <label class="label-pengaturan">Password Saat Ini</label>
-                    <input type="password" name="current_password" placeholder="Masukkan password lama..." class="input-pengaturan">
-                    
-                    <div class="grid-2-col">
-                        <div>
-                            <label class="label-pengaturan">Password Baru</label>
-                            <input type="password" name="new_password" placeholder="Minimal 8 karakter..." class="input-pengaturan" style="margin-bottom: 0;">
-                        </div>
-                        <div>
-                            <label class="label-pengaturan">Konfirmasi Password</label>
-                            <input type="password" name="new_password_confirmation" placeholder="Ulangi password baru..." class="input-pengaturan" style="margin-bottom: 0;">
-                        </div>
-                    </div>
-                </div> -->
-
-                <div style="display: flex; justify-content: flex-end; gap: 16px; margin-bottom: 60px;">
-                    <a href="{{ route('dashboard') }}" style="padding: 16px 32px; border-radius: 14px; font-weight: 800; font-size: 1rem; color: var(--slate-500); text-decoration: none; display: flex; align-items: center;">
+                <div class="btn-wrapper">
+                    <a href="{{ route('dashboard') }}" class="btn-cancel">
                         Batal
                     </a>
-                    <button type="button" class="btn-primary" style="background-color: #9f1239; padding: 16px 32px; border-radius: 14px; font-weight: 800; font-size: 1rem; border: none; color: white; cursor: pointer; transition: all 0.3s ease;" onclick="showToastProfile()">
+
+                    <button type="submit" class="btn-save-profile">
                         Simpan Perubahan
                     </button>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
 
 @push('scripts')
 <script>
-    // Variabel global sementara untuk menyimpan gambar sebelum tombol simpan ditekan
-    let tempAvatarSrc = null;
-
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const uploadInput = document.getElementById('uploadAvatar');
         const avatarPreview = document.getElementById('avatarPreview');
 
-        // 1. SAAT HALAMAN DIBUKA: Cek apakah sebelumnya sudah ada foto yang tersimpan
-        const savedAvatar = localStorage.getItem('adminAvatar');
-        if (savedAvatar) {
-            avatarPreview.src = savedAvatar;
-        }
+        if (uploadInput && avatarPreview) {
+            uploadInput.addEventListener('change', function () {
+                if (this.files && this.files[0]) {
+                    const reader = new FileReader();
 
-        // 2. SAAT UPLOAD FOTO BARU: Tampilkan preview
-        uploadInput.addEventListener('change', function(e) {
-            if (this.files && this.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    tempAvatarSrc = e.target.result; // Simpan ke variabel sementara
-                    
-                    // Animasi pergantian gambar
-                    avatarPreview.style.opacity = '0.5';
-                    setTimeout(() => {
-                        avatarPreview.src = tempAvatarSrc;
-                        avatarPreview.style.opacity = '1';
-                    }, 150);
+                    reader.onload = function (e) {
+                        avatarPreview.style.opacity = '0.5';
+
+                        setTimeout(() => {
+                            avatarPreview.src = e.target.result;
+                            avatarPreview.style.opacity = '1';
+                        }, 150);
+                    };
+
+                    reader.readAsDataURL(this.files[0]);
                 }
-                reader.readAsDataURL(this.files[0]);
-            }
-        });
-    });
-
-    // 3. SAAT TOMBOL SIMPAN DITEKAN
-    function showToastProfile() {
-        const navbarAvatar = document.querySelector('.profile-img');
-
-        // Jika user mengupload foto baru, simpan permanen ke memori browser
-        if (tempAvatarSrc) {
-            localStorage.setItem('adminAvatar', tempAvatarSrc); // Simpan ke LocalStorage
-            
-            // Update gambar di Navbar langsung
-            if (navbarAvatar) {
-                navbarAvatar.style.opacity = '0.5';
-                setTimeout(() => {
-                    navbarAvatar.src = tempAvatarSrc;
-                    navbarAvatar.style.opacity = '1';
-                }, 150);
-            }
-        }
-
-        // Munculkan Notifikasi
-        if (typeof Swal !== 'undefined') {
-            Swal.fire({
-                icon: 'success', 
-                title: 'Profil Diperbarui!', 
-                text: 'Data akun dan foto profil Anda berhasil disimpan secara permanen.',
-                confirmButtonColor: '#9f1239', 
-                shape: 'border-radius: 20px', 
-                customClass: { popup: 'swal-modern' }
             });
-        } else {
-            alert('Berhasil disimpan!');
         }
-    }
+
+        @if (session('success'))
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Profil Diperbarui!',
+                    text: '{{ session('success') }}',
+                    confirmButtonColor: '#9f1239',
+                    customClass: {
+                        popup: 'swal-modern'
+                    }
+                });
+            }
+        @endif
+    });
 </script>
 @endpush
 @endsection

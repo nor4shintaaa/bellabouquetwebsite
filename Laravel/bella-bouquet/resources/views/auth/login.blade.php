@@ -2,7 +2,7 @@
     <style>
         /* Sembunyikan Header default Laravel jika ada */
         .min-h-screen {
-            background: #fffafb !important; /* Warna dasar soft pink khas Bella */
+            background: #fffafb !important;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -32,7 +32,7 @@
         }
 
         .login-header h1 span {
-            color: #f472b6; /* Pink khas BellaAdmin */
+            color: #f472b6;
         }
 
         .login-header p {
@@ -73,10 +73,47 @@
             box-shadow: 0 0 0 4px #fdf2f8;
         }
 
+        .password-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-wrapper .form-input {
+            padding-right: 55px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: #94a3b8;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toggle-password:hover {
+            color: #f472b6;
+        }
+
+        .toggle-password svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .hidden-icon {
+            display: none;
+        }
+
         .btn-login {
             width: 100%;
             padding: 16px;
-            background: #9f1239; /* Deep Rose sesuai tombol utama */
+            background: #9f1239;
             color: white;
             border: none;
             border-radius: 16px;
@@ -137,13 +174,56 @@
 
             <div class="form-group">
                 <label for="email" class="form-label">Alamat Email</label>
-                <input id="email" class="form-input" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" placeholder="admin@gmail.com" />
+                <input
+                    id="email"
+                    class="form-input"
+                    type="email"
+                    name="email"
+                    value="{{ old('email') }}"
+                    required
+                    autofocus
+                    autocomplete="username"
+                    placeholder="Silakan isi alamat email"
+                />
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
 
             <div class="form-group">
                 <label for="password" class="form-label">Kata Sandi</label>
-                <input id="password" class="form-input" type="password" name="password" required autocomplete="current-password" placeholder="••••••••" />
+
+                <div class="password-wrapper">
+                    <input
+                        id="password"
+                        class="form-input"
+                        type="password"
+                        name="password"
+                        required
+                        autocomplete="current-password"
+                        placeholder="Silakan isi kata sandi"
+                    />
+
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        id="togglePassword"
+                        aria-label="Tampilkan atau sembunyikan kata sandi"
+                    >
+                        <!-- Icon mata terbuka -->
+                        <svg id="eyeOpen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+
+                        <!-- Icon mata tertutup -->
+                        <svg id="eyeClosed" class="hidden-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.97 9.97 0 012.223-3.592m3.31-2.218A9.956 9.956 0 0112 5c4.478 0 8.268 2.943 9.542 7a9.973 9.973 0 01-4.132 5.411M15 12a3 3 0 00-3-3m0 0a3 3 0 00-3 3m3-3l9 9M3 3l18 18" />
+                        </svg>
+                    </button>
+                </div>
+
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
 
@@ -165,4 +245,20 @@
             </button>
         </form>
     </div>
+
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const eyeOpen = document.getElementById('eyeOpen');
+        const eyeClosed = document.getElementById('eyeClosed');
+
+        togglePassword.addEventListener('click', function () {
+            const isPassword = passwordInput.type === 'password';
+
+            passwordInput.type = isPassword ? 'text' : 'password';
+
+            eyeOpen.classList.toggle('hidden-icon', isPassword);
+            eyeClosed.classList.toggle('hidden-icon', !isPassword);
+        });
+    </script>
 </x-guest-layout>
