@@ -233,11 +233,11 @@
                     <span>Ingat saya</span>
                 </label>
 
-                @if (Route::has('password.request'))
+                <!-- @if (Route::has('password.request'))
                     <a class="forgot-link" href="{{ route('password.request') }}">
                         Lupa sandi?
                     </a>
-                @endif
+                @endif -->
             </div>
 
             <button type="submit" class="btn-login">
