@@ -6,14 +6,10 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            // Pindahkan kode kamu ke DALAM sini
-            $table->string('role')->default('user')->after('email'); 
+            $table->string('role')->default('pelanggan')->after('email');
         });
     }
 

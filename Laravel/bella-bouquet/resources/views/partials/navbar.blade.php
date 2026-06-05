@@ -13,6 +13,10 @@
                 Daftar Produk
             </a>
 
+            <a href="{{ route('admin.orders.index') }}" class="nav-item {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
+            Pesanan
+            </a>
+
             <a href="{{ route('preferensi.index') }}" class="nav-item {{ request()->routeIs('preferensi.*') ? 'active' : '' }}">
                 Preferensi
             </a>
@@ -36,7 +40,7 @@
                 <div class="nav-profile" style="cursor: pointer; transition: opacity 0.2s ease;" onclick="toggleDropdown()">
                     <div class="profile-info">
                         <span class="profile-name">{{ auth()->user()->name }}</span>
-                        <span class="profile-role">Owner</span>
+                        <span class="profile-role">Admin</span>
                     </div>
 
                     <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=ffe4e6&color=e11d48&bold=true"

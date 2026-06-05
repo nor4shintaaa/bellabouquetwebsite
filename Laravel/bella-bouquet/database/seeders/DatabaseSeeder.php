@@ -10,18 +10,24 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // 1. Buat Akun Admin untuk Login (Tugas Aktivitas 6)
-        // Cek dulu agar tidak double saat running seeder
-        if (User::where('email', 'admin@gmail.com')->count() == 0) {
-            User::create([
+        User::updateOrCreate(
+            ['email' => 'admin@gmail.com'],
+            [
                 'name' => 'Admin Bella',
-                'email' => 'admin@gmail.com',
+                'role' => 'admin',
                 'password' => bcrypt('admin123'),
-            ]);
-        }
+            ]
+        );
 
-        // 2. Memanggil seeder produk jika file ProductSeeder sudah ada
-        // Jika ProductSeeder belum ada, bagian ini bisa di-comment dulu
+        User::updateOrCreate(
+            ['email' => 'pelanggan@gmail.com'],
+            [
+                'name' => 'Pelanggan Bella',
+                'role' => 'pelanggan',
+                'password' => bcrypt('pelanggan123'),
+            ]
+        );
+
         if (class_exists(ProductSeeder::class)) {
             $this->call([
                 ProductSeeder::class,

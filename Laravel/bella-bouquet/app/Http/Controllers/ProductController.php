@@ -93,7 +93,9 @@ class ProductController extends Controller
         ]);
 
         $validated['status'] = $validated['stok'] < 5 ? 'Menipis' : 'Tersedia';
-        $validated['is_active'] = $request->has('is_active');
+        $validated['is_active'] = $request->has('is_active')
+            ? $request->boolean('is_active')
+            : true;
 
         if ($request->hasFile('gambar')) {
             $validated['gambar_url'] = $request->file('gambar')->store('produk_images', 'public');
@@ -126,7 +128,9 @@ class ProductController extends Controller
         ]);
 
         $validated['status'] = $validated['stok'] < 5 ? 'Menipis' : 'Tersedia';
-        $validated['is_active'] = $request->has('is_active');
+        $validated['is_active'] = $request->has('is_active')
+            ? $request->boolean('is_active')
+            : true;
 
         if ($request->hasFile('gambar')) {
             if ($produk->gambar_url && !str_starts_with($produk->gambar_url, 'http')) {

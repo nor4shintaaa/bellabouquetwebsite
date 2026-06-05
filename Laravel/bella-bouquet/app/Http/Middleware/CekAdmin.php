@@ -8,16 +8,30 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CekAdmin
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  Closure(Request): (Response)  $next
-     */
-    public function handle(Request $request, Closure $next, $role)
+    public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        if (auth()->check() && auth()->user()->role == $role) {
+        if (! auth()->check()) {
+            return redirect()->route('login');
+        }
+
+        $userRole = auth()->user()->role;
+
+        if (in_array($userRole, $roles, true)) {
             return $next($request);
         }
-        return redirect('/dashboard')->with('error', 'Anda bukan Admin!');
+
+        if ($userRole === 'admin') {
+            return redirect()
+                ->route('dashboard')
+                ->with('error', 'Anda tidak memiliki akses ke halaman pelanggan.');
+        }
+
+        if ($userRole === 'pelanggan') {
+            return redirect()
+                ->route('pelanggan.index')
+                ->with('error', 'Anda tidak memiliki akses ke halaman admin.');
+        }
+
+        abort(403, 'Role akun tidak valid.');
     }
 }

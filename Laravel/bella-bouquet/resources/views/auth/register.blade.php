@@ -1,52 +1,160 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Bella Bouquet</title>
+    <link rel="stylesheet" href="{{ asset('css/auth-pink.css') }}">
+</head>
+<body>
+    <main class="auth-page">
+        <section class="auth-card">
+            <div class="auth-left">
+                <div class="left-content">
+                    <h1>Create Your <span>Account!</span></h1>
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+                    <p>
+                        Daftar sebagai pelanggan Bella Bouquet untuk mulai menggunakan layanan.
+                        Akun yang dibuat dari halaman ini otomatis menjadi pelanggan.
+                    </p>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+                    <div class="left-small-text">
+                        Join Bella Bouquet as a customer.
+                    </div>
+                </div>
+            </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <div class="auth-right">
+                <div class="form-box">
+                    <div class="form-header">
+                        <h2>Sign Up</h2>
+                        <p>
+                            Sudah punya akun?
+                            <a href="{{ route('login') }}">Sign In</a>
+                        </p>
+                    </div>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+                    <form method="POST" action="{{ route('register') }}">
+                        @csrf
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+                        <div class="form-group">
+                            <label for="name" class="form-label">Nama</label>
+                            <input
+                                id="name"
+                                type="text"
+                                name="name"
+                                value="{{ old('name') }}"
+                                class="form-input"
+                                required
+                                autofocus
+                                autocomplete="name"
+                                placeholder="Masukkan nama lengkap"
+                            >
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                            @error('name')
+                                <div class="error-text">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input
+                                id="email"
+                                type="email"
+                                name="email"
+                                value="{{ old('email') }}"
+                                class="form-input"
+                                required
+                                autocomplete="username"
+                                placeholder="Masukkan email"
+                            >
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
+                            @error('email')
+                                <div class="error-text">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
+                        <div class="form-group">
+                            <label for="password" class="form-label">Password</label>
+                            <div class="password-wrapper">
+                                <input
+                                    id="password"
+                                    type="password"
+                                    name="password"
+                                    class="form-input"
+                                    required
+                                    autocomplete="new-password"
+                                    placeholder="Masukkan password"
+                                >
 
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+                                <button type="button" class="toggle-password" id="togglePassword">
+                                    Lihat
+                                </button>
+                            </div>
+
+                            @error('password')
+                                <div class="error-text">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
+                            <div class="password-wrapper">
+                                <input
+                                    id="password_confirmation"
+                                    type="password"
+                                    name="password_confirmation"
+                                    class="form-input"
+                                    required
+                                    autocomplete="new-password"
+                                    placeholder="Ulangi password"
+                                >
+
+                                <button type="button" class="toggle-password" id="togglePasswordConfirm">
+                                    Lihat
+                                </button>
+                            </div>
+
+                            @error('password_confirmation')
+                                <div class="error-text">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <button type="submit" class="btn-primary-auth">
+                            Sign Up
+                        </button>
+                    </form>
+
+                    <div class="separator">
+                        Bella Bouquet
+                    </div>
+
+                    <div class="form-footer">
+                        Kembali ke
+                        <a href="{{ route('landing') }}">halaman utama</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function setupToggle(buttonId, inputId) {
+            const button = document.getElementById(buttonId);
+            const input = document.getElementById(inputId);
+
+            if (button && input) {
+                button.addEventListener('click', function () {
+                    const isPassword = input.type === 'password';
+
+                    input.type = isPassword ? 'text' : 'password';
+                    button.textContent = isPassword ? 'Tutup' : 'Lihat';
+                });
+            }
+        }
+
+        setupToggle('togglePassword', 'password');
+        setupToggle('togglePasswordConfirm', 'password_confirmation');
+    </script>
+</body>
+</html>

@@ -4,73 +4,121 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 use App\Models\Product;
+use App\Models\Order;
+
 
 class DashboardController extends Controller
 {
-    public function index(Request $request)
-    {
+public function index(Request $request)
+{
+    $skipIncrement = $request->session()->pull('skip_visit_increment', false);
 
-        $skipIncrement = $request->session()->pull('skip_visit_increment', false);
+    if (!$skipIncrement) {
+        $visitCount = $request->session()->get('dashboard_visit_count', 0) + 1;
 
-        if (!$skipIncrement) {
-            $visitCount = $request->session()->get('dashboard_visit_count', 0) + 1;
-
-            if (!$request->session()->has('dashboard_first_visit')) {
-                $request->session()->put('dashboard_first_visit', now()->translatedFormat('d F Y H:i:s'));
-            }
-
-            $request->session()->put('dashboard_visit_count', $visitCount);
-            $request->session()->put('dashboard_last_visit', now()->translatedFormat('d F Y H:i:s'));
+        if (!$request->session()->has('dashboard_first_visit')) {
+            $request->session()->put('dashboard_first_visit', now()->translatedFormat('d F Y H:i:s'));
         }
 
-        $visitData = [
-            'count' => $request->session()->get('dashboard_visit_count', 0),
-            'first' => $request->session()->get('dashboard_first_visit', '-'),
-            'last' => $request->session()->get('dashboard_last_visit', '-'),
-        ];
-
-
-        $products = Product::all();
-
-        $totalProduk = $products->count();
-
-        $totalInventaris = $products->sum(function ($product) {
-            return $product->harga * $product->stok;
-        });
-
-        $stokMenipis = $products->where('stok', '<', 5)->count();
-
-        $terjual = 124;
-
-        $stats = [
-            [
-                'label' => 'Total Produk',
-                'value' => $totalProduk,
-                'icon' => 'package',
-            ],
-            [
-                'label' => 'Total Nilai Inventaris',
-                'value' => 'Rp ' . number_format($totalInventaris, 0, ',', '.'),
-                'icon' => 'dollar-sign',
-            ],
-            [
-                'label' => 'Stok Menipis (< 5)',
-                'value' => $stokMenipis,
-                'icon' => 'alert-circle',
-                'alert' => true,
-            ],
-            [
-                'label' => 'Terjual (Bulan Ini)',
-                'value' => $terjual,
-                'icon' => 'trending-up',
-            ],
-        ];
-
-        $recentProducts = Product::latest()->take(3)->get();
-
-        return view('dashboard', compact('stats', 'recentProducts', 'visitData'));
+        $request->session()->put('dashboard_visit_count', $visitCount);
+        $request->session()->put('dashboard_last_visit', now()->translatedFormat('d F Y H:i:s'));
     }
+
+    $visitData = [
+        'count' => $request->session()->get('dashboard_visit_count', 0),
+        'first' => $request->session()->get('dashboard_first_visit', '-'),
+        'last' => $request->session()->get('dashboard_last_visit', '-'),
+    ];
+
+    $products = Product::all();
+
+    $totalProduk = $products->count();
+
+    $totalInventaris = $products->sum(function ($product) {
+        return $product->harga * $product->stok;
+    });
+
+    $stokMenipis = $products->where('stok', '<', 5)->count();
+
+    /*
+    |--------------------------------------------------------------------------
+    | Data Pesanan
+    |--------------------------------------------------------------------------
+    | Pakai Schema::hasTable agar dashboard tetap aman kalau tabel orders
+    | belum dimigrate.
+    */
+    if (Schema::hasTable('orders')) {
+        $totalPesanan = Order::count();
+
+        $pesananMenungguKonfirmasi = Order::where('status', 'menunggu_konfirmasi')->count();
+
+        $pesananDiproses = Order::where('status', 'diproses')->count();
+
+        $pesananSelesai = Order::where('status', 'selesai')->count();
+
+        $recentOrders = Order::with(['user', 'payment'])
+            ->latest()
+            ->take(5)
+            ->get();
+    } else {
+        $totalPesanan = 0;
+        $pesananMenungguKonfirmasi = 0;
+        $pesananDiproses = 0;
+        $pesananSelesai = 0;
+        $recentOrders = collect();
+    }
+
+    $stats = [
+        [
+            'label' => 'Total Produk',
+            'value' => $totalProduk,
+            'icon' => 'package',
+        ],
+        [
+            'label' => 'Total Pesanan',
+            'value' => $totalPesanan,
+            'icon' => 'shopping-bag',
+        ],
+        [
+            'label' => 'Menunggu Konfirmasi',
+            'value' => $pesananMenungguKonfirmasi,
+            'icon' => 'clock',
+            'alert' => true,
+        ],
+        [
+            'label' => 'Pesanan Diproses',
+            'value' => $pesananDiproses,
+            'icon' => 'loader',
+        ],
+        [
+            'label' => 'Pesanan Selesai',
+            'value' => $pesananSelesai,
+            'icon' => 'check-circle',
+        ],
+        [
+            'label' => 'Stok Menipis (< 5)',
+            'value' => $stokMenipis,
+            'icon' => 'alert-circle',
+            'alert' => true,
+        ],
+        [
+            'label' => 'Total Nilai Inventaris',
+            'value' => 'Rp ' . number_format($totalInventaris, 0, ',', '.'),
+            'icon' => 'dollar-sign',
+        ],
+    ];
+
+    $recentProducts = Product::latest()->take(3)->get();
+
+    return view('dashboard', compact(
+        'stats',
+        'recentProducts',
+        'visitData',
+        'recentOrders'
+    ));
+}
 
 
 

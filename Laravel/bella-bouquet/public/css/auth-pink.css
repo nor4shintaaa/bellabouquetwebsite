@@ -1,0 +1,604 @@
+:root {
+    --primary: #ec4899;
+    --primary-dark: #be185d;
+    --primary-soft: #fce7f3;
+    --primary-light: #fff1f2;
+    --text-dark: #1e293b;
+    --text-muted: #64748b;
+    --white: #ffffff;
+    --border: #fbcfe8;
+    --danger: #dc2626;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text-dark);
+    background:
+        radial-gradient(circle at top right, #f9a8d4 0 17%, transparent 18%),
+        radial-gradient(circle at bottom left, #ec4899 0 18%, transparent 19%),
+        linear-gradient(135deg, #fff1f2, #fdf2f8);
+}
+
+/* =========================
+   PAGE WRAPPER
+========================= */
+
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-page::before {
+    content: "";
+    position: absolute;
+    width: 430px;
+    height: 430px;
+    background: #f9a8d4;
+    border-radius: 50%;
+    top: -140px;
+    right: -120px;
+    opacity: 0.55;
+    filter: blur(1px);
+}
+
+.auth-page::after {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: #ec4899;
+    border-radius: 50%;
+    bottom: -210px;
+    left: -150px;
+    opacity: 0.35;
+    filter: blur(1px);
+}
+
+/* =========================
+   MAIN CARD
+========================= */
+
+.auth-card {
+    width: 100%;
+    max-width: 1080px;
+    min-height: 610px;
+    background: rgba(255, 255, 255, 0.94);
+    border-radius: 24px;
+    box-shadow: 0 25px 70px rgba(190, 24, 93, 0.18);
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+    border: 1px solid rgba(251, 207, 232, 0.85);
+}
+
+/* =========================
+   LEFT SIDE
+========================= */
+
+.auth-left {
+    margin: 24px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #fce7f3, #fbcfe8);
+    position: relative;
+    overflow: hidden;
+    padding: 60px 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Siluet pink besar atas */
+.auth-left::before {
+    content: "";
+    position: absolute;
+    width: 560px;
+    height: 330px;
+    background: linear-gradient(135deg, #ec4899, #fb7185);
+    border-radius: 0 0 58% 58%;
+    top: -165px;
+    left: -105px;
+    transform: rotate(-10deg);
+    z-index: 1;
+}
+
+/* Siluet putih kanan */
+.auth-left::after {
+    content: "";
+    position: absolute;
+    width: 310px;
+    height: 205px;
+    background: rgba(255, 255, 255, 0.72);
+    border-radius: 45% 55% 50% 50%;
+    top: 70px;
+    right: -95px;
+    transform: rotate(-20deg);
+    z-index: 1;
+}
+
+.left-content {
+    position: relative;
+    z-index: 2;
+    max-width: 470px;
+}
+
+.left-content h1 {
+    margin: 0;
+    font-size: 42px;
+    line-height: 1.15;
+    font-weight: 900;
+    color: var(--text-dark);
+    letter-spacing: -0.8px;
+}
+
+.left-content h1 span {
+    color: var(--primary-dark);
+}
+
+.left-content p {
+    margin: 22px auto 0;
+    color: #475569;
+    line-height: 1.8;
+    font-size: 17px;
+    max-width: 430px;
+}
+
+.left-small-text {
+    margin-top: 34px;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--primary-dark);
+    letter-spacing: 0.4px;
+}
+
+/* Sembunyikan icon/emoji/dots lama */
+.brand-mark,
+.floating-items,
+.slider-dots,
+.float-item {
+    display: none !important;
+}
+
+/* =========================
+   RIGHT SIDE
+========================= */
+
+.auth-right {
+    padding: 58px 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-box {
+    width: 100%;
+    max-width: 410px;
+}
+
+.form-header {
+    margin-bottom: 30px;
+}
+
+.form-header h2 {
+    margin: 0;
+    font-size: 34px;
+    font-weight: 900;
+    color: var(--text-dark);
+    letter-spacing: -0.5px;
+}
+
+.form-header p {
+    margin: 10px 0 0;
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.form-header a,
+.form-footer a,
+.forgot-link {
+    color: var(--primary);
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.form-header a:hover,
+.form-footer a:hover,
+.forgot-link:hover {
+    color: var(--primary-dark);
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 7px;
+    color: #94a3b8;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.form-input {
+    width: 100%;
+    border: none;
+    border-bottom: 1.7px solid #d1d5db;
+    background: transparent;
+    padding: 12px 4px;
+    outline: none;
+    color: var(--text-dark);
+    font-size: 15px;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.form-input::placeholder {
+    color: #cbd5e1;
+    font-weight: 500;
+}
+
+.form-input:focus {
+    border-bottom-color: var(--primary);
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper .form-input {
+    padding-right: 62px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 0;
+    bottom: 11px;
+    border: none;
+    background: transparent;
+    color: #94a3b8;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 0;
+}
+
+.toggle-password:hover {
+    color: var(--primary-dark);
+}
+
+.form-row {
+    margin-top: 6px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.remember-me input {
+    accent-color: var(--primary);
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.btn-primary-auth,
+.btn-secondary-auth {
+    width: 100%;
+    min-height: 58px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 800;
+    text-decoration: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.btn-primary-auth {
+    border: none;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white !important;
+    box-shadow: 0 14px 25px rgba(236, 72, 153, 0.26);
+}
+
+.btn-primary-auth:hover {
+    color: white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 18px 35px rgba(236, 72, 153, 0.35);
+}
+
+.btn-secondary-auth {
+    margin-top: 16px;
+    border: 1.5px solid var(--border);
+    background: #fff5f8;
+    color: var(--primary-dark) !important;
+}
+
+.btn-secondary-auth:hover {
+    background: var(--primary-soft);
+    color: var(--primary-dark) !important;
+    transform: translateY(-2px);
+}
+
+button.btn-primary-auth {
+    font-family: inherit;
+}
+
+/* =========================
+   SEPARATOR & FOOTER
+========================= */
+
+.separator {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 28px 0 22px;
+    color: #94a3b8;
+    font-size: 13px;
+    text-align: center;
+}
+
+.separator::before,
+.separator::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #e5e7eb;
+}
+
+.form-footer {
+    margin-top: 20px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* =========================
+   ERROR & STATUS
+========================= */
+
+.error-text {
+    margin-top: 7px;
+    color: var(--danger);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status-box {
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #fdf2f8;
+    color: var(--primary-dark);
+    margin-bottom: 18px;
+    font-size: 14px;
+    font-weight: 700;
+    border: 1px solid var(--border);
+}
+
+/* =========================
+   RESPONSIVE TABLET
+========================= */
+
+@media (max-width: 900px) {
+    .auth-page {
+        padding: 32px 18px;
+        align-items: flex-start;
+    }
+
+    .auth-card {
+        grid-template-columns: 1fr;
+        max-width: 560px;
+        min-height: auto;
+    }
+
+    .auth-left {
+        min-height: 300px;
+        margin: 18px 18px 0;
+        padding: 50px 28px;
+    }
+
+    .auth-right {
+        padding: 38px 34px 42px;
+    }
+
+    .left-content h1 {
+        font-size: 34px;
+    }
+
+    .left-content p {
+        font-size: 15px;
+        max-width: 390px;
+    }
+
+    .left-small-text {
+        margin-top: 28px;
+    }
+
+    .form-header h2 {
+        font-size: 31px;
+    }
+}
+
+/* =========================
+   RESPONSIVE HP
+========================= */
+
+@media (max-width: 520px) {
+    body {
+        background:
+            radial-gradient(circle at top right, #f9a8d4 0 18%, transparent 19%),
+            linear-gradient(135deg, #fff1f2, #fdf2f8);
+    }
+
+    .auth-page {
+        min-height: 100vh;
+        padding: 18px 12px;
+        align-items: flex-start;
+        overflow-y: auto;
+    }
+
+    .auth-page::before {
+        width: 300px;
+        height: 300px;
+        top: -120px;
+        right: -120px;
+        opacity: 0.5;
+    }
+
+    .auth-page::after {
+        display: none;
+    }
+
+    .auth-card {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 18px;
+        min-height: auto;
+    }
+
+    .auth-left {
+        margin: 12px 12px 0;
+        min-height: 245px;
+        padding: 42px 22px;
+        border-radius: 16px;
+    }
+
+    .auth-left::before {
+        width: 390px;
+        height: 235px;
+        top: -145px;
+        left: -110px;
+    }
+
+    .auth-left::after {
+        width: 220px;
+        height: 150px;
+        top: 48px;
+        right: -92px;
+    }
+
+    .left-content h1 {
+        font-size: 28px;
+        line-height: 1.18;
+    }
+
+    .left-content p {
+        margin-top: 16px;
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .left-small-text {
+        margin-top: 22px;
+        font-size: 13px;
+    }
+
+    .auth-right {
+        padding: 30px 22px 34px;
+    }
+
+    .form-box {
+        max-width: 100%;
+    }
+
+    .form-header {
+        margin-bottom: 24px;
+    }
+
+    .form-header h2 {
+        font-size: 28px;
+    }
+
+    .form-header p {
+        font-size: 14px;
+    }
+
+    .form-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-primary-auth,
+    .btn-secondary-auth {
+        min-height: 54px;
+        font-size: 15px;
+        border-radius: 11px;
+    }
+
+    .separator {
+        margin: 24px 0 18px;
+    }
+
+    .form-footer {
+        font-size: 13px;
+    }
+}
+
+/* =========================
+   RESPONSIVE HP KECIL
+========================= */
+
+@media (max-width: 380px) {
+    .auth-left {
+        min-height: 225px;
+        padding: 36px 18px;
+    }
+
+    .left-content h1 {
+        font-size: 25px;
+    }
+
+    .left-content p {
+        font-size: 13px;
+    }
+
+    .auth-right {
+        padding: 26px 18px 30px;
+    }
+
+    .form-header h2 {
+        font-size: 26px;
+    }
+
+    .form-input {
+        font-size: 14px;
+    }
+}

@@ -451,21 +451,29 @@
 
             <table class="table-riwayat">
                 <tbody>
-                    @foreach($riwayatPesanan as $pesanan)
+                    @forelse($recentOrders as $pesanan)
                         <tr>
                             <td style="color: var(--slate-500); font-weight: 600;">
-                                {{ $pesanan['inv'] }}
+                                {{ $pesanan->order_code }}
                             </td>
 
                             <td style="color: var(--slate-700); font-weight: 600;">
-                                {{ $pesanan['nama'] }}
+                                {{ $pesanan->user->name ?? '-' }}
                             </td>
 
-                            <td class="status-label {{ $pesanan['status'] === 'Selesai' ? 'status-success' : 'status-warning' }}">
-                                {{ $pesanan['status'] }}
+                            <td class="status-label">
+                                <a href="{{ route('admin.orders.show', $pesanan) }}" style="color: var(--primary); font-weight: 900;">
+                                    {{ $pesanan->status_label }}
+                                </a>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="3" style="color: var(--slate-500); text-align:center;">
+                                Belum ada pesanan.
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
